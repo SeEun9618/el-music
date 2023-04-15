@@ -30,3 +30,6 @@ $ npx prettier --write .
 ### 주요 라이브러리
 * axios
 * styled-components
+
+### 구현 화면
+![](https://user-images.githubusercontent.com/50814622/232245058-162506ac-37e6-4fad-afde-e78e1c33cbcb.png)
