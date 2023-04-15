@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { SITE_NAME } from "@/constants";
 
 export default function Header() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function Header() {
         <NavWrapper>
           <LogoBox onClick={() => router.push("/albums")}>
             <img src="https://itunes.apple.com/favicon.ico" />
-            <span>이엘뮤직</span>
+            <span>{SITE_NAME}</span>
           </LogoBox>
           <SearchBox>
             <input
