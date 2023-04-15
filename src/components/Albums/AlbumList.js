@@ -51,7 +51,7 @@ const AlbumListWrapper = styled.div`
   }
 
   @media all and (max-width: 479px) {
-    margin: 40px 0;
+    margin: 10px 0;
     padding: 0 1rem;
   }
 `;

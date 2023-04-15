@@ -89,6 +89,12 @@ const LogoBox = styled.div`
   > span {
     font-size: 20px;
   }
+
+  @media all and (max-width: 479px) {
+    > img {
+      width: 25%;
+    }
+  }
 `;
 
 const SearchBox = styled.div`
@@ -105,6 +111,10 @@ const SearchBox = styled.div`
     width: 100%;
     height: auto;
     transition: all 0.2s ease;
+  }
+
+  @media all and (max-width: 479px) {
+    max-width: 200px;
   }
 `;
 
