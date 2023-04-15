@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 import { SITE_NAME } from "@/constants";
 
@@ -19,6 +19,10 @@ export default function Header() {
     e.preventDefault();
     router.push(`/albums?q=${keyword}`);
   };
+
+  useEffect(() => {
+    setKeyword(router.query.q || "");
+  }, [router.query]);
 
   return (
     <HeaderContainer>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
 export default function MenuFilter({ setSort }) {
   const [selectedMenu, setSelectedMenu] = useState(null);
@@ -8,6 +9,12 @@ export default function MenuFilter({ setSort }) {
     setSort(data);
     setSelectedMenu(data);
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    setSort(null);
+    setSelectedMenu(null);
+  }, [router.query]);
 
   return (
     <MenuFilterContainer>
