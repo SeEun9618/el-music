@@ -2,41 +2,45 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export default function AlbumItem({ data }) {
+  const handleOpenAlbumLink = () => {
+    window.open(data.link.attributes.href, "_blank");
+  };
 
-    const handleOpenAlbumLink = () => {
-        window.open(data.link.attributes.href, "_blank");
-    };
-
-    return (
-        <AlbumItemContainer>
-            <Title>
-                <h2>앨범 정보</h2>
-            </Title>
-            <AlbumInfoWrapper>
-                <AlbumInfo>
-                    <AlbumPhoto>
-                        <Image src={data["im:image"][2]["label"]} width={300} height={300} alt="album" />
-                    </AlbumPhoto>
-                    <AlbumDesc>
-                        <AlbumTitleBox>
-                            <span>{data["category"]["attributes"]["term"]}</span>
-                            <AlbumTitle>{data["im:name"]["label"]}</AlbumTitle>
-                            <AlbumArtist>{data["im:artist"]["label"]}</AlbumArtist>
-                        </AlbumTitleBox>
-                        <AlbumDescInfoBox>
-                            <AlbumDescInfo>
-                                <p>{data["im:releaseDate"]["attributes"]["label"]}</p>
-                                <p>{data["im:price"]["label"]}</p>
-                            </AlbumDescInfo>
-                        </AlbumDescInfoBox>
-                        <AlbumDescBtn>
-                            <button onClick={handleOpenAlbumLink}>앨범 수록곡 보기</button>
-                        </AlbumDescBtn>
-                    </AlbumDesc>
-                </AlbumInfo>
-            </AlbumInfoWrapper>
-        </AlbumItemContainer>
-    );
+  return (
+    <AlbumItemContainer>
+      <Title>
+        <h2>앨범 정보</h2>
+      </Title>
+      <AlbumInfoWrapper>
+        <AlbumInfo>
+          <AlbumPhoto>
+            <Image
+              src={data["im:image"][2]["label"]}
+              width={300}
+              height={300}
+              alt="album"
+            />
+          </AlbumPhoto>
+          <AlbumDesc>
+            <AlbumTitleBox>
+              <span>{data["category"]["attributes"]["term"]}</span>
+              <AlbumTitle>{data["im:name"]["label"]}</AlbumTitle>
+              <AlbumArtist>{data["im:artist"]["label"]}</AlbumArtist>
+            </AlbumTitleBox>
+            <AlbumDescInfoBox>
+              <AlbumDescInfo>
+                <p>{data["im:releaseDate"]["attributes"]["label"]}</p>
+                <p>{data["im:price"]["label"]}</p>
+              </AlbumDescInfo>
+            </AlbumDescInfoBox>
+            <AlbumDescBtn>
+              <button onClick={handleOpenAlbumLink}>앨범 수록곡 보기</button>
+            </AlbumDescBtn>
+          </AlbumDesc>
+        </AlbumInfo>
+      </AlbumInfoWrapper>
+    </AlbumItemContainer>
+  );
 }
 
 const AlbumItemContainer = styled.section`
@@ -50,7 +54,7 @@ const AlbumItemContainer = styled.section`
 const Title = styled.div`
   position: relative;
   margin: 30px 0;
-  
+
   > h2 {
     font-size: 25px;
     font-weight: 500;
@@ -78,7 +82,7 @@ const AlbumPhoto = styled.div`
   width: 300px;
   height: 300px;
   margin-right: 15px;
-  
+
   > img {
     width: 100%;
     height: 100%;
@@ -149,7 +153,7 @@ const AlbumDescBtn = styled.div`
     font-size: 15px;
     color: #fff;
   }
-  
+
   > button:hover {
     background-color: #1255ef;
   }

@@ -4,7 +4,7 @@ export default function Home() {
 
 export async function getServerSideProps(context) {
   context.res.writeHead(302, {
-    Location: '/albums'
+    Location: "/albums",
   });
   context.res.end();
   return { props: {} };

@@ -2,48 +2,39 @@ import styled from "styled-components";
 import { useState } from "react";
 
 export default function MenuFilter({ setSort }) {
+  const [selectedMenu, setSelectedMenu] = useState(null);
 
-    const [selectedMenu, setSelectedMenu] = useState(null);
+  const handleClickSort = (data) => {
+    setSort(data);
+    setSelectedMenu(data);
+  };
 
-    const handleClickSort = (data) => {
-        setSort(data);
-        setSelectedMenu(data);
-    };
-
-    return (
-        <MenuFilterContainer>
-            <MenuFilterWrapper>
-                <MenuFilters>
-                    <Menu onClick={() => handleClickSort("asc")}>
-                        <input
-                            type="radio"
-                            id="filter1"
-                            name="filter"
-                            value="오름차순"
-                        />
-                        <label
-                            htmlFor="filter1"
-                            className={selectedMenu === "asc" ? "active" : ""}
-                        >
-                            오름차순
-                        </label>
-                    </Menu>
-                    <Menu onClick={() => handleClickSort("desc")}>
-                        <input
-                            type="radio"
-                            id="filter2"
-                            name="filter"
-                            value="내림차순"
-                        />
-                        <label
-                            htmlFor="filter2"
-                            className={selectedMenu === "desc" ? "active" : ""}
-                        >내림차순</label>
-                    </Menu>
-                </MenuFilters>
-            </MenuFilterWrapper>
-        </MenuFilterContainer>
-    );
+  return (
+    <MenuFilterContainer>
+      <MenuFilterWrapper>
+        <MenuFilters>
+          <Menu onClick={() => handleClickSort("asc")}>
+            <input type="radio" id="filter1" name="filter" value="오름차순" />
+            <label
+              htmlFor="filter1"
+              className={selectedMenu === "asc" ? "active" : ""}
+            >
+              오름차순
+            </label>
+          </Menu>
+          <Menu onClick={() => handleClickSort("desc")}>
+            <input type="radio" id="filter2" name="filter" value="내림차순" />
+            <label
+              htmlFor="filter2"
+              className={selectedMenu === "desc" ? "active" : ""}
+            >
+              내림차순
+            </label>
+          </Menu>
+        </MenuFilters>
+      </MenuFilterWrapper>
+    </MenuFilterContainer>
+  );
 }
 
 const MenuFilterContainer = styled.section``;
@@ -68,14 +59,14 @@ const MenuFilters = styled.div`
 const Menu = styled.div`
   flex-shrink: 0;
   padding: 6px;
-  
+
   > input {
     outline: none;
     opacity: 0;
     position: fixed;
     width: 0;
   }
-  
+
   > label {
     display: inline-flex;
     -webkit-box-pack: center;
@@ -89,7 +80,7 @@ const Menu = styled.div`
     color: rgb(134, 141, 150);
     font-size: 16px;
   }
-  
+
   > label:hover,
   > label.active {
     border: 1px solid rgb(66, 119, 242);

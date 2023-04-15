@@ -4,46 +4,45 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
 
-    const router = useRouter();
+  const [keyword, setKeyword] = useState("");
 
-    const [keyword, setKeyword] = useState("");
+  const handleOnKeyUp = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
 
-    const handleOnKeyUp = (e) => {
-        if(e.key === "Enter") {
-            handleSubmit(e);
-        }
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/albums?q=${keyword}`);
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        router.push(`/albums?q=${keyword}`);
-    };
-
-    return (
-        <HeaderContainer>
-            <NavContainer>
-                <NavWrapper>
-                    <LogoBox onClick={() => router.push("/albums")}>
-                        <img src="https://itunes.apple.com/favicon.ico" />
-                        <span>이엘뮤직</span>
-                    </LogoBox>
-                    <SearchBox>
-                        <input
-                            type="text"
-                            placeholder="앨범명을 검색하세요."
-                            value={keyword}
-                            onChange={(e) => setKeyword(e.target.value)}
-                            onKeyUp={handleOnKeyUp}
-                        />
-                        <SearchBtn onClick={handleSubmit}>
-                            <IoSearchOutline />
-                        </SearchBtn>
-                    </SearchBox>
-                </NavWrapper>
-            </NavContainer>
-        </HeaderContainer>
-    );
+  return (
+    <HeaderContainer>
+      <NavContainer>
+        <NavWrapper>
+          <LogoBox onClick={() => router.push("/albums")}>
+            <img src="https://itunes.apple.com/favicon.ico" />
+            <span>이엘뮤직</span>
+          </LogoBox>
+          <SearchBox>
+            <input
+              type="text"
+              placeholder="앨범명을 검색하세요."
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyUp={handleOnKeyUp}
+            />
+            <SearchBtn onClick={handleSubmit}>
+              <IoSearchOutline />
+            </SearchBtn>
+          </SearchBox>
+        </NavWrapper>
+      </NavContainer>
+    </HeaderContainer>
+  );
 }
 
 const HeaderContainer = styled.header`
@@ -95,12 +94,12 @@ const SearchBox = styled.div`
   > input {
     background-color: rgb(248, 249, 251);
     border: 1px solid rgb(233, 235, 239);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
     border-radius: 28px;
     width: 100%;
     height: auto;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
   }
 `;
 
