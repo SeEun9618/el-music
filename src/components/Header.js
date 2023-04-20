@@ -3,11 +3,15 @@ import { IoSearchOutline } from "react-icons/io5";
 import {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 import { SITE_NAME } from "@/constants";
+import Link from "next/link";
+import {getAlbums} from "@/api/albums";
 
 export default function Header() {
   const router = useRouter();
 
   const [keyword, setKeyword] = useState("");
+
+  const [searchKeyword, setSearchKeyword] = useState(null);
 
   const handleOnKeyUp = (e) => {
     if (e.key === "Enter") {
@@ -23,6 +27,19 @@ export default function Header() {
   useEffect(() => {
     setKeyword(router.query.q || "");
   }, [router.query]);
+
+  useEffect(() => {
+    const init = async () => {
+      const data = await getAlbums();
+
+      let searchData = data.feed.entry.filter((list) =>
+          list["im:name"]["label"].toLowerCase().includes(keyword) === true)
+      .slice(0, 10);
+      setSearchKeyword(searchData.length > 0 ? searchData : null);
+    }
+    init();
+  }, [keyword]);
+
 
   return (
     <HeaderContainer>
@@ -43,6 +60,23 @@ export default function Header() {
             <SearchBtn onClick={handleSubmit}>
               <IoSearchOutline />
             </SearchBtn>
+            {keyword &&
+                <AutoSearchContainer>
+                  <AutoSearchWrapper>
+                    {
+                      searchKeyword.map((data) => {
+                        return (
+                            <AutoSearchData key={data["id"]["attributes"]["im:id"]}>
+                              <Link href={`/albums/${data["id"]["attributes"]["im:id"]}`}>
+                                <span>{data["im:name"]["label"]}</span>
+                              </Link>
+                            </AutoSearchData>
+                        );
+                      })
+                    }
+                  </AutoSearchWrapper>
+                </AutoSearchContainer>
+            }
           </SearchBox>
         </NavWrapper>
       </NavContainer>
@@ -101,13 +135,12 @@ const SearchBox = styled.div`
   max-width: 250px;
   width: 100%;
   position: relative;
+  z-index: 2;
 
   > input {
     background-color: rgb(248, 249, 251);
     border: 1px solid rgb(233, 235, 239);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
-    border-radius: 28px;
     width: 100%;
     height: auto;
     transition: all 0.2s ease;
@@ -131,5 +164,33 @@ const SearchBtn = styled.button`
     color: rgb(134, 141, 150);
     top: 50%;
     transform: translateY(-50%);
+  }
+`;
+
+const AutoSearchContainer = styled.div`
+  height: 30vh;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  top: 37px;
+  border: 2px solid rgb(134, 141, 150);
+  padding: 10px;
+  overflow-y: scroll;
+`;
+
+const AutoSearchWrapper = styled.ul``;
+
+const AutoSearchData = styled.li`
+  padding: 10px 8px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 4;
+  letter-spacing: 2px;
+  position: relative;
+
+  &:hover {
+    background-color: rgb(248, 249, 251);
+    cursor: pointer;
   }
 `;
