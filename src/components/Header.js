@@ -17,6 +17,9 @@ export default function Header() {
     if (e.key === "Enter") {
       handleSubmit(e);
     }
+    if(e.target.value === "" && e.key.length === 1) {
+      setSearchKeyword(null);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -63,15 +66,15 @@ export default function Header() {
             {keyword &&
                 <AutoSearchContainer>
                   <AutoSearchWrapper>
-                    {
-                      searchKeyword.map((data) => {
-                        return (
-                            <AutoSearchData key={data["id"]["attributes"]["im:id"]}>
-                              <Link href={`/albums/${data["id"]["attributes"]["im:id"]}`}>
-                                <span>{data["im:name"]["label"]}</span>
-                              </Link>
-                            </AutoSearchData>
-                        );
+                    {searchKeyword &&
+                        searchKeyword.map((data) => {
+                          return (
+                              <AutoSearchData key={data["id"]["attributes"]["im:id"]}>
+                                <Link href={`/albums/${data["id"]["attributes"]["im:id"]}`}>
+                                  <span>{data["im:name"]["label"]}</span>
+                                </Link>
+                              </AutoSearchData>
+                          );
                       })
                     }
                   </AutoSearchWrapper>
